@@ -5,7 +5,7 @@ from numpy import loadtxt, reshape, sqrt, sin, cos
 
 
 def plot(X1, X2, Y, Sigma, x1s, x2s, ys):
-    nstar = sqrt(len(x1s))
+    nstar = int(sqrt(len(x1s)))
     x1s = reshape(x1s, (nstar, nstar))
     x2s = reshape(x2s, (nstar, nstar))
     ys = reshape(ys, (nstar, nstar))
