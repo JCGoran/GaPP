@@ -23,7 +23,8 @@
 """
 
 
-import dgp, covariance
+import gapp.dgp as dgp
+import gapp.covariance as covariance
 import numpy as np
 from numpy import array, concatenate, ones, random, reshape, shape, zeros
 import multiprocessing
@@ -155,12 +156,14 @@ class MCMCDGaussianProcess(dgp.DGaussianProcess):
             scale = None
             self.scl = None
 
-        dgp.DGaussianProcess.__init__(self, X, Y, Sigma, covfunction, 
-                                      theta0[0,:], dX, dY, dSigma, Xstar, cXstar, 
-                                      mu, dmu, d2mu, d3mu, muargs,
-                                      prior, gradprior=None, priorargs=priorargs,
-                                      thetatrain='False', scale=scale, 
-                                      scaletrain='False')
+        super().__init__(
+            self, X, Y, Sigma, covfunction,
+            theta0[0,:], dX, dY, dSigma, Xstar, cXstar,
+            mu, dmu, d2mu, d3mu, muargs,
+            prior, gradprior=None, priorargs=priorargs,
+            thetatrain='False', scale=scale,
+            scaletrain='False',
+        )
 
         self.theta0 = theta0
         self.scale0 = scale0

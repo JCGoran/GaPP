@@ -25,7 +25,8 @@
 
 
 
-import gp, covariance
+import gapp.gp as gp
+import gapp.covariance as covariance
 import numpy as np
 from numpy import array, concatenate, ones, random, reshape, shape, zeros
 import multiprocessing

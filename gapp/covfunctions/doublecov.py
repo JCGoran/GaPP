@@ -24,7 +24,7 @@
 
 
 
-import cov
+import gapp.covfunctions.cov as cov
 import numpy as np
 from numpy import concatenate, reshape
 import warnings

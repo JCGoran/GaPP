@@ -30,13 +30,14 @@
 # dm_dgp: reconstruction of f'(x) using measurements of f(x) and f'(x)
 # dm_d2gp: reconstruction of f''(x) using measurements of f(x) and f'(x)
 
-import gp
-import covariance
+import gapp.gp as gp
+import gapp.covariance as covariance
 import numpy as np
 from numpy import append, array, concatenate, diagonal, dot, eye, \
     flatnonzero, linalg, log, pi, reshape, resize, shape, sqrt, take, \
     transpose, zeros
 import scipy.optimize as opt
+import warnings
 
 
 class DGaussianProcess(gp.GaussianProcess):
@@ -992,7 +993,7 @@ class DGaussianProcess(gp.GaussianProcess):
                     if (priorp == 0.0 and gradpriorp[t] == 0.0):
                         gradpriorlogp[t] = 0.0
                     elif (priorp <= 0.0):
-                        gradpriorlogp[t] = sign(gradpriorp[t]) * 1.0e20
+                        gradpriorlogp[t] = np.sign(gradpriorp[t]) * 1.0e20
                     else:
                         gradpriorlogp[t] = gradpriorp[t]/priorp
         # gradient of the negative log likelihood

@@ -24,8 +24,7 @@
 
 
 
-
-import cov
+import gapp.covfunctions.cov as cov
 import numpy as np
 from numpy import array, exp, reshape, sqrt
 import warnings

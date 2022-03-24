@@ -25,7 +25,7 @@
 
 
 
-import cov
+import gapp.covfunctions.cov as cov
 import numpy as np
 from numpy import array, exp, reshape, sqrt
 import warnings
@@ -248,7 +248,7 @@ class DoubleSquaredExponential(cov.CovarianceFunction):
             (xxl1 - 2)
         dgrad_s2 = float(2 * sigmaf2/l2**2 * exp(-xxl2/2.) * 
                          (self.x1 - self.x2))
-        dgrad_l = sigmaf2**2/l2**3 * exp(-xxl2/2.) * (self.x1 - self.x2) * \
+        dgrad_l2 = sigmaf2**2/l2**3 * exp(-xxl2/2.) * (self.x1 - self.x2) * \
             (xxl2 - 2)
         dgrad = array([dgrad_s1, dgrad_l1, dgrad_s2, dgrad_l2])
         return dgrad
