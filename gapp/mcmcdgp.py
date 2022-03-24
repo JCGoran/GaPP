@@ -156,7 +156,7 @@ class MCMCDGaussianProcess(dgp.DGaussianProcess):
             scale = None
             self.scl = None
 
-        super().__init__(
+        dgp.DGaussianProcess.__init__(
             self, X, Y, Sigma, covfunction,
             theta0[0,:], dX, dY, dSigma, Xstar, cXstar,
             mu, dmu, d2mu, d3mu, muargs,
