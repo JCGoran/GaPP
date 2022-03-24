@@ -33,7 +33,7 @@ import warnings
 class SquaredExponential(cov.CovarianceFunction):
     # initialize class with initial hyperparameter theta
     def __init__(self, theta, X=None, Y=None):
-        if (theta == None): 
+        if np.any(theta == None):
             # automatically provide initial theta if none is given
             sigmaf = (max(Y) - min(Y))/2.0
             l = np.min(np.max(X, axis=0) - np.min(X, axis=0))/2.0

@@ -65,7 +65,7 @@ class DGaussianProcess(gp.GaussianProcess):
 
     # set observational data of the derivative of f(x)
     def set_ddata(self, dX, dY, dSigma):
-        if (dX == None or dY == None or dSigma == None):
+        if np.any(dX == None) or np.any(dY == None) or np.any(dSigma == None):
             self.dX = None
             self.dY = None
             self.dY_dmu = None
@@ -119,7 +119,7 @@ class DGaussianProcess(gp.GaussianProcess):
             self.dmu = None
         else:
             self.dmu = dmu
-        if (self.dY != None):
+        if np.any(self.dY != None):
             if(dmu == None):
                 self.dY_dmu = self.dY[:]
             else:
@@ -176,7 +176,7 @@ class DGaussianProcess(gp.GaussianProcess):
             self.set_prior(prior, self.gradprior, priorargs)
         if (scale != 'False'): 
             self.set_scale(scale)
-        if (self.dX == None):
+        if np.any(self.dX == None):
             return(-self.nlog_likelihood())
         else:
             return(-self.dm_nlog_likelihood())
@@ -271,7 +271,7 @@ class DGaussianProcess(gp.GaussianProcess):
         if (grad != None):
             self.set_grad(grad)
         # GP run
-        if (self.dX == None):
+        if np.any(self.dX == None):
             return(self.fgp(unpack=unpack))
         else:
             return(self.dm_gp(unpack=unpack))
@@ -301,7 +301,7 @@ class DGaussianProcess(gp.GaussianProcess):
             if (self.grad == 'True'):
                 self.grad_covariance()
             self.uptodate = 'True'
-        if (self.alpha == None):
+        if np.any(self.alpha == None):
             raise RuntimeError("Invalid hyperparameters. Covariance matrix" +
                                " not positive definit.")
         # calculate covariance vector kstar
@@ -360,7 +360,7 @@ class DGaussianProcess(gp.GaussianProcess):
         if (grad != None):
             self.set_grad(grad)
         # GP run
-        if (self.dX == None):
+        if np.any(self.dX == None):
             return(self.fdgp(unpack=unpack))
         else:
             return(self.dm_dgp(unpack=unpack))
@@ -427,7 +427,7 @@ class DGaussianProcess(gp.GaussianProcess):
             if (self.grad == 'True'):
                 self.grad_covariance()
             self.uptodate = 'True'
-        if (self.alpha == None):
+        if np.any(self.alpha == None):
             raise RuntimeError("Invalid hyperparameters. Covariance matrix " +
                                "not positive definit")
         # calculate covariance vector kstar
@@ -472,10 +472,10 @@ class DGaussianProcess(gp.GaussianProcess):
             self.set_dmu(dmu)
         if (d2mu != 'False'):
             self.set_d2mu(d2mu)
-        if (self.dX != None and self.dmu == None and self.mu != None):
+        if np.all(self.dX != None) and np.any(self.dmu == None) and np.all(self.mu != None):
             warnings.warn("mu given, but dmu=None. mu will be ignored")
             self.unset_mu()
-        if (self.d2mu == None and self.mu != None):
+        if np.any(self.d2mu == None) and np.all(self.mu != None):
             warnings.warn("mu given, but d2mu=None. mu will be ignored")
             self.unset_mu()
         if (prior != 'False'): 
@@ -490,7 +490,7 @@ class DGaussianProcess(gp.GaussianProcess):
         if (grad != None):
             self.set_grad(grad)
         # GP run
-        if (self.dX == None):
+        if np.any(self.dX == None):
             return(self.fd2gp(unpack=unpack))
         else:
             return(self.dm_d2gp(unpack=unpack))
@@ -558,7 +558,7 @@ class DGaussianProcess(gp.GaussianProcess):
             if (self.grad == 'True'):
                 self.grad_covariance()
             self.uptodate = 'True'
-        if (self.alpha == None):
+        if np.any(self.alpha == None):
             raise RuntimeError("Invalid hyperparameters. Covariance matrix " +
                                "not positive definit.")
         # calculate covariance vector kstar
@@ -604,10 +604,10 @@ class DGaussianProcess(gp.GaussianProcess):
             self.set_dmu(dmu)
         if (d3mu != 'False'):
             self.set_d3mu(d3mu)
-        if (self.dX != None and self.dmu == None and self.mu != None):
+        if np.all(self.dX != None) and np.any(self.dmu == None) and np.all(self.mu != None):
             warnings.warn("mu given, but dmu=None. mu will be ignored")
             self.unset_mu()
-        if (self.d3mu == None and self.mu != None):
+        if np.any(self.d3mu == None) and np.all(self.mu != None):
             warnings.warn("mu given, but d3mu=None. mu will be ignored")
             self.unset_mu()
         if (prior != 'False'):
@@ -619,10 +619,10 @@ class DGaussianProcess(gp.GaussianProcess):
                 scaletrain = 'True'
             self.set_scale(scale)
             self.set_scaletrain(scaletrain)
-        if (grad != None):
+        if np.all(grad != None):
             self.set_grad(grad)
         # GP run
-        if (self.dX == None):
+        if np.any(self.dX == None):
             return(self.fd3gp(unpack=unpack))
         else:
             return(self.dm_d3gp(unpack=unpack))
@@ -941,7 +941,7 @@ class DGaussianProcess(gp.GaussianProcess):
         else:
             priorlogp = 0.0
         YdY = concatenate((self.Y_mu, self.dY_dmu))
-        if (self.dmalpha == None):
+        if np.any(self.dmalpha == None):
             logp = 1.0e+20 - priorlogp
         else:
             logp = -(-0.5 * dot(YdY, self.dmalpha) - 
@@ -1011,7 +1011,7 @@ class DGaussianProcess(gp.GaussianProcess):
             if (self.grad == 'True'):
                 self.dm_grad_covariance()
             self.dmuptodate = 'True'
-        if (self.dmalpha == None):
+        if np.any(self.dmalpha == None):
             raise RuntimeError("Invalid hyperparameters. Covariance matrix " +
                                "not positive definit")
         # calculate covariance vector kstar
@@ -1399,7 +1399,7 @@ class DGaussianProcess(gp.GaussianProcess):
             if (self.grad == 'True'):
                 self.dm_grad_covariance()
             self.dmuptodate = 'True'
-        if (self.dmalpha == None):
+        if np.any(self.dmalpha == None):
             raise RuntimeError("Invalid hyperparameters. Covariance matrix " +
                                "not positive definit.")
         # calculate covariance vector kstar
@@ -1483,7 +1483,7 @@ class DGaussianProcess(gp.GaussianProcess):
             if (self.grad == 'True'):
                 self.dm_grad_covariance()
             self.dmuptodate = 'True'
-        if (self.dmalpha == None):
+        if np.any(self.dmalpha == None):
             raise RuntimeError("Invalid hyperparameters. Covariance matrix " +
                                "not positive definit")
         # calculate covariance vector kstar
@@ -1569,7 +1569,7 @@ class DGaussianProcess(gp.GaussianProcess):
             if (self.grad == 'True'):
                 self.dm_grad_covariance()
             self.dmuptodate = 'True'
-        if (self.dmalpha == None):
+        if np.any(self.dmalpha == None):
             raise RuntimeError("Invalid hyperparameters. Covariance matrix " +
                                "not positive definit")
         # calculate covariance vector kstar

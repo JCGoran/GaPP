@@ -78,7 +78,7 @@ class GaussianProcess(object):
         except:
             self.covnumber = 1
         if(self.covnumber == 1):
-            if (theta == None):
+            if np.any(theta == None):
                 # theta determined automatically
                 self.covf = covfunction(theta, X, Y)  
             else:
@@ -114,7 +114,7 @@ class GaussianProcess(object):
                     xmin = xmin * ones(d)
                 if(xmax != None and shape(xmax) in [(), (1, )]):
                     xmax = xmax * ones(d)
-            if (xmin == None or xmax == None):
+            if np.any(xmin == None) or np.any(xmax == None):
                 self.auto_create_Xstar(xmin, xmax, nstar)
             else:
                 self.create_Xstar(xmin, xmax, nstar)
@@ -349,7 +349,7 @@ class GaussianProcess(object):
 
     # create vector Xstar with nstar values between xmin and xmax
     def create_Xstar(self, xmin, xmax, nstar):
-        if (xmin == None or xmax == None):
+        if np.any(xmin == None) or np.any(xmax == None):
             self.auto_create_Xstar(xmin, xmax, nstar)
         else:
             if (shape(xmin) in [(), (1, ), (1, 1)]):
@@ -494,7 +494,7 @@ class GaussianProcess(object):
         else:
             priorlogp = 0.0
         # calculate the negative log marginal likelihood
-        if (self.alpha == None):
+        if np.any(self.alpha == None):
             logp = 1.0e+20 - priorlogp
         else:
             logp = -(-0.5 * dot(transpose(self.Y_mu), self.alpha) - 
@@ -511,7 +511,7 @@ class GaussianProcess(object):
             self.grad_covariance()
             self.uptodate = 'True'
         logp = self.nlog_likelihood()
-        if (self.alpha == None):
+        if np.any(self.alpha == None):
             try:
                 self.gradlogp = 0.9 * self.gradlogp
                 return (logp, array(-self.gradlogp))
@@ -565,7 +565,7 @@ class GaussianProcess(object):
             if (self.grad == 'True'):
                 self.grad_covariance()
             self.uptodate = 'True'
-        if (self.alpha == None):
+        if np.any(self.alpha == None):
             raise RuntimeError('invalid hyperparameters; ' + 
                                'covariance matrix not positive definit')
         # calculate covariance vector kstar
