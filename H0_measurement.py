@@ -49,7 +49,7 @@ if __name__=="__main__":
     sighzrec = rec1[:,2]
     
     # ======= printing the reconstructed H(z) at the lowest point, i.e., zmin=0, and its relative uncertainty 
-    print 'z=', zrec[0], ' H0=', hzrec[0], ' sigH0=',  sighzrec[0], ' sigH0/H0 (%)=', (sighzrec[0]/hzrec[0])*100.
+    print('z=', zrec[0], ' H0=', hzrec[0], ' sigH0=',  sighzrec[0], ' sigH0/H0 (%)=', (sighzrec[0]/hzrec[0])*100.)
         
     # ========== saving the reconstructed hz and its derivatives
     savetxt("hz_rec.dat",rec1)
