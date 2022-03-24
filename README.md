@@ -15,7 +15,9 @@ Install using pip:
 python3 -m pip install git+https://github.com/JCGoran/GaPP@feature/python3#GaPP
 ```
 
-Some parts of the code may not work (Pylint still reports undefined variables), but the examples seem to work fine.
+Furthermore, if you want to use the MCMC features of the code, you need to additionally install [emcee](https://github.com/dfm/emcee) and [acor](https://github.com/dfm/acor).
+
+**NOTE**: some parts of the code may not function (Pylint still reports undefined variables), but the examples seem to work fine.
 
 ## Contact
 

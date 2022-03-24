@@ -14,7 +14,5 @@ setup(
         'matplotlib>=3.3',
         'numpy>=1.16.0',
         'scipy>=1.2.0',
-        'emcee>=3.1.1',
-        'acor>=1.1.1',
     ],
 )
